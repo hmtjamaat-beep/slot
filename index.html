@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramdaan 1447</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .section {
+            display: block;
+        }
+
+        .section.hidden {
+            display: none;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-verify {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-verify:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-verify:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+            white-space: pre-wrap;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .message.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: block;
+        }
+
+        .message.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(12, 84, 96, 0.3);
+            border-radius: 50%;
+            border-top-color: #0c5460;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-iframe {
+            margin-top: 30px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .form-iframe iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+            display: block;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .success-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-header h2 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .success-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .group-info {
+            background: #e8f4f8;
+            border-left: 4px solid #0066cc;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .group-info strong {
+            color: #003d7a;
+        }
+
+        .blocked-section {
+            text-align: center;
+        }
+
+        .blocked-section h2 {
+            color: #721c24;
+            margin-bottom: 15px;
+        }
+
+        .blocked-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .blocked-details p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .blocked-details strong {
+            color: #333;
+        }
+
+        .debug-info {
+            display: none;
+            margin-top: 20px;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .current-section-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .selection-section {
+            text-align: center;
+        }
+
+        .selection-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .selection-button {
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .selection-button:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .selection-button h3 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+
+        .selection-button p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .back-to-selection {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-selection button {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .back-to-selection button:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Selection Section -->
+        <div id="selectionSection" class="section">
+            <h1>🌙 Ramdaan 1447</h1>
+            <p class="subtitle">Please select which form you want to fill</p>
+            
+            <div class="info-box">
+                📋 Choose the appropriate form based on your requirement. Each form has its own verification process.
+            </div>
+
+            <div class="selection-buttons">
+                <div class="selection-button" onclick="selectSection('azan')">
+                    <h3>📢 Azan</h3>
+                    <p>For Azan related submissions</p>
+                </div>
+                
+                <div class="selection-button" onclick="selectSection('taqbeera')">
+                    <h3>🕌 Taqbeera</h3>
+                    <p>For Taqbeera related submissions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verification Section -->
+        <div id="verificationSection" class="section hidden">
+            <div class="current-section-badge" id="currentSectionBadge"></div>
+            
+            <h1>🔐 ID Verification</h1>
+            <p class="subtitle">Enter your 8-digit ITS ID to verify</p>
+            
+            <div class="info-box">
+                🔍 Your ID will be verified against the database. Only verified members can access the form.
+            </div>
+            
+            <form onsubmit="verifyID(event)">
+                <div class="form-group">
+                    <label for="idInput">ITS ID (8 digits)</label>
+                    <input 
+                        type="text" 
+                        id="idInput" 
+                        placeholder="Enter your 8-digit ITS ID"
+                        maxlength="8"
+                        pattern="[0-9]{8}"
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit" id="verifyBtn" class="btn-verify">Verify ID</button>
+                    <button type="button" onclick="resetForm()" class="btn-reset">Clear</button>
+                </div>
+                
+                <div id="verificationMessage" class="message"></div>
+                <div id="debugInfo" class="debug-info"></div>
+            </form>
+
+            <div class="back-to-selection">
+                <button onclick="backToSelection()">← Back to Selection</button>
+            </div>
+        </div>
+
+        <!-- Blocked Section -->
+        <div id="blockedSection" class="section hidden">
+            <div class="current-section-badge" id="blockedSectionBadge"></div>
+            
+            <div class="blocked-section">
+                <h2>🚫 Access Restricted</h2>
+                
+                <div id="blockedDetails" class="blocked-details">
+                    <!-- Details will be populated by JavaScript -->
+                </div>
+                
+                <button onclick="refreshPage()" class="btn-verify" style="margin-top: 20px;">
+                    🔄 Try Another ID
+                </button>
+
+                <div class="back-to-selection">
+                    <button onclick="backToSelection()">← Back to Selection</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div id="formSection" class="section hidden">
+            <div class="current-section-badge" id="formSectionBadge"></div>
+            
+            <div class="success-header">
+                <h2>✅ Verification Successful</h2>
+                <p>Please fill out the form below</p>
+            </div>
+            
+            <div id="groupInfo" class="group-info"></div>
+            
+            <div class="form-iframe">
+                <iframe 
+                    id="googleFormFrame"
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0"
+                    title="Google Form">
+                    Loading...
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIGURATION FOR BOTH SECTIONS ==========
+        
+        // AZAN Configuration
+        const AZAN_CONFIG = {
+            appsScriptUrl: "https://script.google.com/macros/s/AKfycbwpW9mqRkvwYo0B7Ik63Dglx0WduO0QMyWSTr_K7w06QB1Xdo-63GKOeSZjGbK9p3K7/exec",
+            formBaseUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf1sUan8U1Efa2MesAU4hGU39qgCPH7M1FerLPemUQc0sxPqw/viewform?usp=header&embedded=true",
+            itsIdEntryId: "1055524627",
+            displayName: "📢 Azan"
+        };
+        
+        // TAQBEERA Configuration
+        const TAQBEERA_CONFIG = {
+            appsScriptUrl: "https://script.google.com/macros/s/AKfycbzgG5heuJi5q9fMBHnTiFSzlIBQN1N4sOk4CXEZJjZS_reGDJRDup--Iktc9AgiLl4atg/exec", // CHANGE THIS
+            formBaseUrl: "https://docs.google.com/forms/d/e/1FAIpQLSed81i7I5kMdF-Ewtp5ypogYIeHWYVtSWMDRUW6dQVRn1ZAsQ/viewform?usp=header&embedded=true", // CHANGE THIS
+            itsIdEntryId: "1055524627", // CHANGE THIS
+            displayName: "🕌 Taqbeera"
+        };
+        
+        // ========== STATE VARIABLES ==========
+        let currentSection = null; // 'azan' or 'taqbeera'
+        let currentConfig = null;
+        let verifiedITS = null;
+        let verifiedHOF = null;
+        let isFormVerified = false;
+        
+        // ========== SECTION SELECTION ==========
+        function selectSection(section) {
+            currentSection = section;
+            currentConfig = (section === 'azan') ? AZAN_CONFIG : TAQBEERA_CONFIG;
+            
+            // Update badges
+            updateSectionBadges();
+            
+            // Show verification section
+            document.getElementById("selectionSection").classList.add("hidden");
+            document.getElementById("verificationSection").classList.remove("hidden");
+            document.getElementById("blockedSection").classList.add("hidden");
+            document.getElementById("formSection").classList.add("hidden");
+            
+            // Reset form
+            resetForm();
+        }
+        
+        function updateSectionBadges() {
+            const badgeText = currentConfig.displayName;
+            document.getElementById("currentSectionBadge").textContent = badgeText;
+            document.getElementById("blockedSectionBadge").textContent = badgeText;
+            document.getElementById("formSectionBadge").textContent = badgeText;
+        }
+        
+        function backToSelection() {
+            isFormVerified = false;
+            currentSection = null;
+            currentConfig = null;
+            
+            document.getElementById("selectionSection").classList.remove("hidden");
+            document.getElementById("verificationSection").classList.add("hidden");
+            document.getElementById("blockedSection").classList.add("hidden");
+            document.getElementById("formSection").classList.add("hidden");
+            
+            resetForm();
+        }
+        
+        // ========== PREVENT BACK BUTTON NAVIGATION ==========
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                if (isFormVerified) {
+                    resetToVerification();
+                }
+            }
+        });
+
+        window.addEventListener('pagehide', function(event) {
+            if (isFormVerified) {
+                window.history.pushState(null, null, window.location.href);
+            }
+        });
+
+        window.history.pushState(null, null, window.location.href);
+
+        window.addEventListener('popstate', function(event) {
+            if (isFormVerified) {
+                window.history.pushState(null, null, window.location.href);
+                alert('You cannot go back after verification. Please close the tab or refresh to verify a new ID.');
+            }
+        });
+
+        // ========== FORM FUNCTIONS ==========
+        function showDebug(message) {
+            const debugDiv = document.getElementById("debugInfo");
+            debugDiv.style.display = "block";
+            debugDiv.innerHTML += message + "<br>";
+            console.log("[DEBUG]", message);
+        }
+        
+        async function verifyID(event) {
+            event.preventDefault();
+            
+            if (!currentConfig) {
+                alert("Please select a section first");
+                return;
+            }
+            
+            const idInput = document.getElementById("idInput").value.trim();
+            const messageDiv = document.getElementById("verificationMessage");
+            const verifyBtn = document.getElementById("verifyBtn");
+            const debugDiv = document.getElementById("debugInfo");
+            
+            // Clear previous debug info
+            debugDiv.innerHTML = "";
+            
+            showDebug(`Starting verification for ID: ${idInput} in section: ${currentSection}`);
+            
+            // Validate input
+            if (idInput.length !== 8 || isNaN(idInput)) {
+                showMessage(messageDiv, "error", "❌ Please enter a valid 8-digit ID");
+                return;
+            }
+            
+            // Disable button and show loading
+            verifyBtn.disabled = true;
+            showMessage(messageDiv, "loading", "<span class='spinner'></span>Verifying ID...");
+            
+            try {
+                showDebug("Sending request to: " + currentConfig.appsScriptUrl);
+                
+                const response = await fetch(currentConfig.appsScriptUrl, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        id: idInput,
+                        action: "verify"
+                    })
+                });
+                
+                showDebug("Response status: " + response.status);
+                
+                const responseText = await response.text();
+                showDebug("Raw response received");
+                
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (e) {
+                    showDebug("Failed to parse JSON: " + e.message);
+                    showMessage(messageDiv, "error", "❌ Invalid response from server. Please try again.");
+                    verifyBtn.disabled = false;
+                    return;
+                }
+                
+                showDebug("Parsed data: " + JSON.stringify(data));
+                
+                if (!data.found) {
+                    showMessage(messageDiv, "error", "❌ ITS ID not found in database. Please check and try again.");
+                    verifyBtn.disabled = false;
+                    return;
+                }
+                
+                // ID found in database
+                if (data.canSubmit) {
+                    // ✅ CAN SUBMIT
+                    verifiedITS = idInput;
+                    verifiedHOF = data.hofGroup;
+                    isFormVerified = true;
+                    
+                    showMessage(messageDiv, "success", "✅ ID verified successfully!\nYou can now fill the form.");
+                    showDebug("Verification successful! HOF: " + data.hofGroup);
+                    
+                    setTimeout(() => {
+                        document.getElementById("verificationSection").classList.add("hidden");
+                        document.getElementById("blockedSection").classList.add("hidden");
+                        document.getElementById("formSection").classList.remove("hidden");
+                        document.getElementById("groupInfo").innerHTML = `<strong>📍 Group (HOF):</strong> ${data.hofGroup}`;
+                        
+                        // Load Google Form with pre-filled ITS ID
+                        loadGoogleFormWithID(verifiedITS);
+                    }, 1000);
+                } else {
+                    // ❌ CANNOT SUBMIT
+                    showDebug("Access blocked: " + data.message);
+                    
+                    if (data.isUserSubmitted) {
+                        showMessage(messageDiv, "error", "❌ You Already Submitted\n\nYou have already submitted this form. You cannot submit again.");
+                        document.getElementById("blockedDetails").innerHTML = `
+                            <p><strong>⏰ Your Submission:</strong></p>
+                            <p>You already submitted this form and cannot submit again.</p>
+                            <p>Only one submission per user is allowed.</p>
+                        `;
+                    } else if (data.isGroupMemberSubmitted) {
+                        showMessage(messageDiv, "warning", "⚠️ Group Member Already Submitted\n\nAnother member of your group has already submitted the form.");
+                        document.getElementById("blockedDetails").innerHTML = `
+                            <p><strong>👥 Your Group (HOF):</strong> ${data.hofGroup}</p>
+                            <p><strong>📝 Submitted by ITS ID:</strong> ${data.submittedBy}</p>
+                            <p><strong>⏰ Submitted on:</strong> ${data.submittedAt || 'earlier'}</p>
+                            <p>Only one submission per group is allowed. Please contact your group administrator if you have any questions.</p>
+                        `;
+                    } else {
+                        showMessage(messageDiv, "error", "❌ " + data.message);
+                        document.getElementById("blockedDetails").innerHTML = `<p>${data.message}</p>`;
+                    }
+                    
+                    setTimeout(() => {
+                        document.getElementById("verificationSection").classList.add("hidden");
+                        document.getElementById("formSection").classList.add("hidden");
+                        document.getElementById("blockedSection").classList.remove("hidden");
+                    }, 800);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                showDebug("Fetch error: " + error.message);
+                showMessage(messageDiv, "error", `❌ Error verifying ID:\n${error.message}`);
+                verifyBtn.disabled = false;
+            }
+        }
+
+        // Load Google Form with pre-filled ITS ID
+        function loadGoogleFormWithID(itsID) {
+            const formURLWithID = currentConfig.formBaseUrl + `&entry.${currentConfig.itsIdEntryId}=${encodeURIComponent(itsID)}`;
+            
+            showDebug("Loading form with ITS ID: " + itsID);
+            showDebug("Form URL: " + formURLWithID);
+            
+            const iframe = document.getElementById("googleFormFrame");
+            iframe.src = formURLWithID;
+        }
+        
+        function showMessage(messageDiv, type, text) {
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = text;
+        }
+        
+        function resetForm() {
+            document.getElementById("idInput").value = "";
+            document.getElementById("verificationMessage").className = "message";
+            document.getElementById("verificationMessage").innerHTML = "";
+            document.getElementById("debugInfo").innerHTML = "";
+            document.getElementById("debugInfo").style.display = "none";
+        }
+
+        function resetToVerification() {
+            isFormVerified = false;
+            if (currentSection) {
+                document.getElementById("verificationSection").classList.remove("hidden");
+                document.getElementById("blockedSection").classList.add("hidden");
+                document.getElementById("formSection").classList.add("hidden");
+            } else {
+                backToSelection();
+            }
+            resetForm();
+        }
+        
+        function goBackToVerification() {
+            resetToVerification();
+        }
+
+        function refreshPage() {
+            isFormVerified = false;
+            location.reload();
+        }
+    </script>
+</body>
+</html>
